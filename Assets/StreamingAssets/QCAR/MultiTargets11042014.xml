@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="XTeamBlack" size="2048.000000 2048.000000" />
+    <ImageTarget name="PizzaBox" size="512.000000 512.000000" />
+    <ImageTarget name="OneFatSheepLogo" size="512.000000 512.000000" />
+    <ImageTarget name="XHero02" size="1024.000000 1024.000000" />
+    <ImageTarget name="XHero01" size="1024.000000 1024.000000" />
+    <ImageTarget name="XHero04" size="1024.000000 1024.000000" />
+    <ImageTarget name="XHero00" size="1024.000000 1024.000000" />
+    <ImageTarget name="XHero03" size="1024.000000 1024.000000" />
+    <ImageTarget name="RedBullFront2" size="1260.000000 1260.000000" />
+    <ImageTarget name="RedBullTop" size="1460.000000 1460.000000" />
+    <ImageTarget name="RedBullFront" size="1272.000000 1272.000000" />
+    <CylinderTarget name="RedBull" sideLength="22.148500"/>
+    <CylinderTarget name="Bottle" sideLength="3.100000"/>
+    <CylinderTarget name="XTeam" sideLength="22.148500"/>
+  </Tracking>
+</QCARConfig>

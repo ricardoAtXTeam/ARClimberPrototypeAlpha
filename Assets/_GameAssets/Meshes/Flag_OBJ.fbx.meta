@@ -1,0 +1,121 @@
+fileFormatVersion: 2
+guid: 3a1e0e19af27fc4439e22e79e6c218c3
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Flag_1_JNT
+    100002: Flag_2_JNT
+    100004: Flag_3_JNT
+    100006: Flag_4_JNT
+    100008: Flag_5_JNT
+    100010: Flag_MSH
+    100012: //RootNode
+    100014: Flag_Root_JNT
+    400000: Flag_1_JNT
+    400002: Flag_2_JNT
+    400004: Flag_3_JNT
+    400006: Flag_4_JNT
+    400008: Flag_5_JNT
+    400010: Flag_MSH
+    400012: //RootNode
+    400014: Flag_Root_JNT
+    4300000: Flag_MSH
+    7400000: FlagBlow
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Flag_MSH
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: FlagBlow
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Flag_MSH
+        weight: 1
+      - path: Flag_Root_JNT
+        weight: 1
+      - path: Flag_Root_JNT/Flag_1_JNT
+        weight: 1
+      - path: Flag_Root_JNT/Flag_1_JNT/Flag_2_JNT
+        weight: 1
+      - path: Flag_Root_JNT/Flag_1_JNT/Flag_2_JNT/Flag_3_JNT
+        weight: 1
+      - path: Flag_Root_JNT/Flag_1_JNT/Flag_2_JNT/Flag_3_JNT/Flag_4_JNT
+        weight: 1
+      - path: Flag_Root_JNT/Flag_1_JNT/Flag_2_JNT/Flag_3_JNT/Flag_4_JNT/Flag_5_JNT
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
