@@ -28,30 +28,37 @@ public class GameController : MonoBehaviour
 	public Transform arCameraTF;
 
 	private IntroSequence _introSequence;
-	private TerrainGenerator _terrainGenerator;
+	private TimeLabelFactory _timeLabelFactory;
+//	private TerrainGenerator _terrainGenerator;
 
 	private Vector3 _arCamOriginalPos;
 	private Quaternion _arCamOriginalRot;
 
 	private float _startTime;
 	private bool _reverseTime = true;
-	private float _maxTime = 120f;
+	private const float MAX_TIME = 30f;
 	private float _currentTime = 0f;
+	private float _timePenalty = 0f;
+	private float _timePenaltyTimer = 0.2f;
+	private bool _timePenaltyLocked = false;
 
 
 	private string _endScreenMethod = "OnDisplayEndScreenFinished";
 	private string _updateElapsedTime = "UpdateElapsedTime";
 
-	private float _minTerrainSizeX = 200;
-	private float _minTerrainSizeY = 64f;
+//	private float _minTerrainSizeX = 200;
+//	private float _minTerrainSizeY = 64f;
 	private string _noTimeString = "00:00";
 
 	void Awake()
 	{
+
+		_timeLabelFactory = GetComponent<TimeLabelFactory>();
+
 		_introSequence = GetComponent<IntroSequence>();
 		_introSequence.IntroSequenceFinishedEvent.AddListener += OnIntroFinished;
 
-		_terrainGenerator = terrainTF.GetComponent<TerrainGenerator>();
+		//_terrainGenerator = terrainTF.GetComponent<TerrainGenerator>();
 		flag.GetComponent<TriggerListener>().OnTriggerEnterEvent.AddListener += OnEnterFlagEvent;
 		//_terrainGenerator.OnTerrainSetupComplete.AddListener += OnTerrainSetupComplete;
 		_arCamOriginalPos = arCameraTF.position;
@@ -78,7 +85,9 @@ public class GameController : MonoBehaviour
 		multipleMarkerController.OnTrackersStatusModified.AddListener += OnTrackersStatusModified;
 		InvokeRepeating( _updateElapsedTime,0f,1f);
 		_startTime = Time.timeSinceLevelLoad;
-		_currentTime = _maxTime;
+		_currentTime = MAX_TIME;
+
+		debrisFactory.PlayerCollisionEvent.AddListener += OnPlayerCollisionEvent;
 	}
 
 	void ResetARCamera()
@@ -87,24 +96,60 @@ public class GameController : MonoBehaviour
 		arCameraTF.rotation = _arCamOriginalRot;
 	}
 
-	void UpdateElapsedTime()
+	void TestGameOverConditions()
+	{
+		if(_currentTime <= 0 )
+			playerController.Kill();
+	}
+
+	void UpdateElapsedTime( )
 	{
 		float totalTime;
 		if(_reverseTime)
 		{
 			if( _currentTime > 0 )
+			{
 				_currentTime -= 1;
+				TestGameOverConditions();
+			}
 
 			totalTime = _currentTime;
 		}
 		else
 		{
-			totalTime = Time.timeSinceLevelLoad - _startTime ;
+			totalTime = _timePenalty + Time.timeSinceLevelLoad - _startTime ;
 		}
 
 		timeElapsedLabel.text = TimeToString(totalTime);
 	}
 
+	void AddTimePenalty( float timePenalty )
+	{
+		if(_timePenaltyLocked)
+			return;
+
+		_timePenaltyLocked = true;
+		Invoke( "UnlockTimePenalty",_timePenaltyTimer);
+
+		float totalTime;
+		if( _reverseTime )
+		{
+			if( _currentTime > 0)
+			{
+				_currentTime -= timePenalty;
+				TestGameOverConditions();
+			}
+			totalTime = _currentTime;
+		}
+		else
+		{
+			_timePenalty += timePenalty;
+			totalTime = _timePenalty + Time.timeSinceLevelLoad - _startTime ;
+		}
+		timeElapsedLabel.text = TimeToString(totalTime);
+
+		_timeLabelFactory.ActivateLabel( ((int)timePenalty).ToString());
+	}
 
 	string TimeToString( float totalTime)
 	{
@@ -166,10 +211,12 @@ public class GameController : MonoBehaviour
 	void Reset()
 	{
 		_startTime = Time.timeSinceLevelLoad;
-		_currentTime = _maxTime;
+		_currentTime = MAX_TIME;
 		CancelInvoke(_updateElapsedTime);
 		InvokeRepeating( _updateElapsedTime,0f,1f);
 		playerController.Reset();
+		_timePenaltyLocked = false;
+		_timePenalty = 0f;
 	}
 
 	void ActivateIntro()
@@ -179,7 +226,18 @@ public class GameController : MonoBehaviour
 		Time.timeScale = 1f;
 		_introSequence.ActivateIntro();
 	}
+	
 #region Event Listeners
+
+	void UnlockTimePenalty()
+	{
+		_timePenaltyLocked = false;
+	}
+
+	void OnPlayerCollisionEvent(params object[] vars)
+	{
+		AddTimePenalty(1f);
+	}
 
 	void OnIntroFinished(params object[] vars)
 	{

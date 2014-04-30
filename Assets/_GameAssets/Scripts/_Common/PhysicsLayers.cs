@@ -8,6 +8,8 @@
 	CLIMB_AREA				= 1<<13,
 	OBSTACLES				= 1<<14,
 	FORBIDDEN_SPAWN_AREA	= 1<<15,
+	PLAYER_COLL_HELPER		= 1<<16,
+	TIME_PENALTY			= 1<<17,
 	UI						= 1<<31
 }
 
@@ -21,5 +23,7 @@ public enum eIntPhysicsLayers
 	CLIMB_AREA				= 13,
 	OBSTACLES				= 14,
 	FORBIDDEN_SPAWN_AREA	= 15,
+	PLAYER_COLL_HELPER		= 16,
+	TIME_PENALTY			= 17,
 	UI						= 31
 }

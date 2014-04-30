@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
 	private bool _lockMovement = false;
 	private Vector3 _lastValidPos;
 
+	private RagdollController _ragDollController;
+
 	void Awake()
 	{
 		_transform = transform;
@@ -73,11 +75,14 @@ public class PlayerController : MonoBehaviour
 		climbAreaListener.OnTriggerStayEvent.AddListener += OnStayClimbArea;
 		climbAreaListener.OnTriggerExitEvent.AddListener += OnExitClimbArea;
 		collListener.OnTriggerEnterEvent.AddListener += OnCollisionWithDebris;
+
+		_ragDollController = GetComponent<RagdollController>();
 	}
 
 
 	public void Reset()
 	{
+		_lockMovement = false;
 		_isClimbing = false;
 		_isMoving = false;
 		_currentAngle = 0f;
@@ -88,8 +93,17 @@ public class PlayerController : MonoBehaviour
 		characterTransform.rotation = Quaternion.identity;
 		_forwardDir = Vector3.zero;
 		_targetPos = Vector3.zero;
+		_ragDollController.ActivateRagDoll( false );
 	}
 
+	public void Kill()
+	{
+		if(_ragDollController.IsActive)
+			return ;
+
+		_lockMovement = true;
+		_ragDollController.ActivateRagDoll( true );
+	}
 #region Event Listeners
 
 	void OnCollisionWithDebris( params object[] vars )
@@ -196,7 +210,7 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate () 
 	{
 
-		if(_lockMovement)
+		if(_lockMovement || _ragDollController.IsActive)
 		{
 			_forwardDir = Vector3.zero;
 		}
